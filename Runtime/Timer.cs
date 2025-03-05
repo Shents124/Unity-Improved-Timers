@@ -3,17 +3,17 @@ using UnityEngine;
 
 namespace ImprovedTimers {
     public abstract class Timer : IDisposable {
-        public float CurrentTime { get; protected set; }
+        public double CurrentTime { get; protected set; }
         public bool IsRunning { get; private set; }
 
-        protected float initialTime;
+        protected double initialTime;
 
-        public float Progress => Mathf.Clamp(CurrentTime / initialTime, 0, 1);
+        public float Progress => Mathf.Clamp((float)(CurrentTime / initialTime), 0, 1);
 
         public Action OnTimerStart = delegate { };
         public Action OnTimerStop = delegate { };
 
-        protected Timer(float value) {
+        protected Timer(double value) {
             initialTime = value;
         }
 
@@ -42,7 +42,7 @@ namespace ImprovedTimers {
 
         public virtual void Reset() => CurrentTime = initialTime;
 
-        public virtual void Reset(float newTime) {
+        public virtual void Reset(double newTime) {
             initialTime = newTime;
             Reset();
         }
